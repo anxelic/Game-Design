@@ -21,7 +21,6 @@ public class Mage extends Player
 	{
 		if (strength >= 25)
 		{
-			System.out.println("You are a Warrior");
 			return true;
 		}
 		return false;
@@ -31,7 +30,6 @@ public class Mage extends Player
 	{
 		if (agility >= 25)
 		{
-			System.out.println("You are a Rogue");
 			return true;
 		}
 		return false;
@@ -41,7 +39,6 @@ public class Mage extends Player
 	{
 		if (charisma >= 25)
 		{
-			System.out.println("You are a Face");
 			return true;
 		}
 		return false;
@@ -51,7 +48,6 @@ public class Mage extends Player
 	{
 		if (intelligence >= 25)
 		{
-			System.out.println("You are a Mage");
 			return true;
 		}
 		return false;

@@ -20,7 +20,5 @@ public class Main {
 
         // player.xpGain(250, s);
         // player.listStats();
-
-        
     }
 }

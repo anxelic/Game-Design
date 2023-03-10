@@ -124,6 +124,7 @@ public class Player {
 	public void command (Scanner s) {
 		System.out.println("What do you wish to do next? (help for list of cmds): ");
 		String input = s.nextLine().toLowerCase();
+		LocationTracker map = new LocationTracker();
 		if (input.equals("help")) {
 			System.out.println("The list of commands are: ");
 			System.out.println("- help (brings you here!)");
@@ -135,6 +136,19 @@ public class Player {
 			System.out.println("- west (moves west)");
 			System.out.println("- east (moves east)");
 			System.out.println("- south (moves south)");
+			command(s);
+		} else if (input.equals("north")) {
+			map.play(input);
+			command(s);
+		} else if (input.equals("south")) {
+			map.play(input);
+			command(s);
+		} else if (input.equals("west")) {
+			map.play(input);
+			command(s);
+		} else if (input.equals("east")) {
+			map.play(input);
+			command(s);
 		}
 	}
 

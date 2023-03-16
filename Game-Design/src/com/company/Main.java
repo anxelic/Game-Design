@@ -7,18 +7,16 @@ public class Main {
         Scanner s = new Scanner(System.in);
         System.out.println("What class do you desire to be?: warrior, bard, rogue, or mage (please write it as shown)");
         String input = s.nextLine().toLowerCase();
+        Intro intro = new Intro();
         Player player = new Player(input);
         player.listStats();
         player.displayInventory();
 
-        player.command(s);
+        //Intro intro = new Intro(player);
+        System.out.println("Welcome to the maze! I am the guide of this challenge. Do you wish to talk to me to learn the maze, or would you rather enter.(talk or enter)");
+        intro.letsBegin(s, player);
+        //System.out.println("Welcome to the maze! I am the guide of this challenge. Do you wish to talk to me to learn the maze, or would you rather enter.(talk or enter)");
 
-        // System.out.println("What stat do you wish to increase? (strength, agility, charisma, intelligence):");
-        // input = s.nextLine().toLowerCase();
-        // player.upgradeStat(input);
-        // player.listStats();
-
-        // player.xpGain(250, s);
-        // player.listStats();
+        //player.command(s);
     }
 }

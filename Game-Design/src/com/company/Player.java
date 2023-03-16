@@ -149,6 +149,9 @@ public class Player {
 		} else if (input.equals("east")) {
 			map.play(input);
 			command(s);
+		} else {
+			System.out.println("Invalid command.");
+			command(s);
 		}
 	}
 

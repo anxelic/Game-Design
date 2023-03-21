@@ -16,58 +16,48 @@ public class LocationTracker {
     
     // map creation
     private int[][] map = new int[MAP_WIDTH][MAP_HEIGHT];
+    private int[][] map2 = new int[MAP_WIDTH][MAP_HEIGHT];
     
     // current position
     private int playerX = START_X;
     private int playerY = START_Y;
+
+    //end game boolean
+    private Boolean endGame = false;
     
     public LocationTracker() {
         //left wall
         for (int i = 0; i < MAP_HEIGHT; i++) {
             map[0][i] = WALL;
+            map2[0][i] = WALL;
         }
         //right wall
         for (int i = 0; i < MAP_HEIGHT; i++) {
             map[MAP_WIDTH - 1][i] = WALL;
+            map2[MAP_WIDTH - 1][i] = WALL;
         }
 
         //top wall
         for (int i = 1; i < MAP_WIDTH - 1; i++) {
             if (i == 9) {
                 map[i][0] = SPACE; // entrance
+                map2[i][0] = SPACE;
             } else {
                 map[i][0] = HORWALL;
+                map2[i][0] = HORWALL;
             }
         }
 
         //bot wall
         for (int i = 1; i < MAP_WIDTH - 1; i++) {
             if (i == 7) {
-                map[i][MAP_HEIGHT -1] = SPACE; //exit
+                map[i][MAP_HEIGHT - 1] = SPACE; //exit
+                map2[i][MAP_HEIGHT - 1] = SPACE;
             } else {
-                map[i][MAP_HEIGHT -1] = HORWALL;
+                map[i][MAP_HEIGHT - 1] = HORWALL;
+                map2[i][MAP_HEIGHT - 1] = HORWALL;
             }
         }
-
-        //room walls
-        // map[8][1] = WALL;
-        // map[10][1] = WALL;
-        // map[14][1] = WALL;
-        // map[8][2] = WALL;
-        // map[10][2] = WALL;
-        // map[14][2] = WALL;
-        // map[2][2] = HORWALL;
-        // map[3][2] = HORWALL;
-        // map[4][2] = HORWALL;
-        // map[6][2] = HORWALL;
-        // map[7][2] = HORWALL;
-        // map[8][2] = WALL;
-        // map[10][2] = WALL;
-        // map[11][2] = HORWALL;
-        // map[12][2] = HORWALL;
-        // map[4][3] = WALL;
-        // map[4][4] = WALL;
-
         map[1][6] = HORWALL;
         map[1][8] = HORWALL;
         map[2][2] = HORWALL;
@@ -157,7 +147,6 @@ public class LocationTracker {
     }
     
     public void play(String s) {
-        // displayWorld();
         switch (s) {
             case "north":
                 if (playerY > 0 && map[playerX][playerY - 1] != WALL && map[playerX][playerY - 1] != HORWALL) {
@@ -180,12 +169,45 @@ public class LocationTracker {
                 }
                 break;
         }
-        // System.out.println("-------------------------------------");
-        displayWorld();
+        if (playerY == 16) {
+            System.out.println("yippie");
+            endGame = true;
+        } else {
+            map2[playerX-1][playerY] = map[playerX-1][playerY];
+            map2[playerX+1][playerY] = map[playerX+1][playerY];
+            map2[playerX][playerY-1] = map[playerX][playerY-1];
+            map2[playerX][playerY+1] = map[playerX][playerY+1];
+            displayWorld();
+        }
+    }
+
+    private void displayWorld() {
+        for (int y = 0; y < MAP_HEIGHT; y++) {
+            for (int x = 0; x < MAP_WIDTH; x++) {
+                if (x == playerX && y == playerY) {
+                    System.out.print(" @ ");
+                } else {
+                    switch (map2[x][y]) {
+                        case SPACE:
+                            System.out.print("   ");
+                            break;
+                        case WALL:
+                            System.out.print(" | ");
+                            break;
+                        case HORWALL:
+                            System.out.print("---");
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public Boolean gameEnd () {
+        return endGame;
     }
     
-    private void displayWorld() {
-        
+    private void displayWorldWithMap() {
         for (int y = 0; y < MAP_HEIGHT; y++) {
             for (int x = 0; x < MAP_WIDTH; x++) {
                 if (x == playerX && y == playerY) {

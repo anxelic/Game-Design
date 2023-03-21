@@ -15,6 +15,7 @@ public class Player {
 	int xpCap = 200;
 	String[] inventory = new String[10];
 	LocationTracker map = new LocationTracker();
+	boolean game = true;
 
 	public Player(String s) {
 		spec = s;
@@ -123,7 +124,10 @@ public class Player {
 	}
 
 	public void command (Scanner s) {
-		System.out.println("What do you wish to do next? (help for list of cmds): ");
+		if (map.gameEnd() == true) {
+			System.out.println("ajhwvdghjvwawadhjwadjh");
+		} else {
+			System.out.println("What do you wish to do next? (help for list of cmds): ");
 		String input = s.nextLine().toLowerCase();
 		if (input.equals("help")) {
 			System.out.println("The list of commands are: ");
@@ -153,6 +157,8 @@ public class Player {
 			System.out.println("Invalid command.");
 			command(s);
 		}
+	}
+		
 	}
 
 	// INVENTORY

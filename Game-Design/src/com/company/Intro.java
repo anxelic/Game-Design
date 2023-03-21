@@ -32,6 +32,21 @@ public class Intro {
     }
 
     public void statCheck (Scanner s, Player player) {
+        //strength
+	    //agility <- > 10
+	    //charisma <-  > 10
+	    //intelligence
+        if (player.stats[1] > 10) { // agi check
+            System.out.println("*You sneak up and steal the copy of the map from the guide.");
+            player.addItemToInventory("Map");
+            System.out.println("*You hastly make your way into the maze.");
+            player.command(s);
 
+        } else if (player.stats[2] > 10) { //charisma check
+            System.out.println("*You convince the guide to give you the layout of the maze.");
+            player.addItemToInventory("Map");
+            System.out.println("*You make your way into the maze...");
+            player.command(s);
+        }
     }
 }

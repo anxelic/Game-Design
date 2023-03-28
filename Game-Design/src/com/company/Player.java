@@ -123,6 +123,35 @@ public class Player {
 		}
 	}
 
+	public boolean keyCheck () {
+		int count = 0;
+
+		for (int i = 0; i < inventory.length; i++) {
+			if (inventory[i] != null) {
+				if (inventory[i].equals("red_key") || inventory[i].equals("blue_key") || inventory[i].equals("green_key")) {
+					count++;
+				} 
+			}
+		}
+
+		if (count == 3) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean mapCheck () {
+		for (int i = 0; i < inventory.length; i++) {
+			if (inventory[i] != null) {
+				if (inventory[i].equals("map")) {
+					return true;
+				} 
+			}
+		}
+		return false;
+	}
+
 	public void command (Scanner s) {
 		if (map.gameEnd() == true) {
 			System.out.println("ajhwvdghjvwawadhjwadjh");
@@ -142,16 +171,16 @@ public class Player {
 			System.out.println("- south (moves south)");
 			command(s);
 		} else if (input.equals("north")) {
-			map.play(input);
+			map.play(input, this);
 			command(s);
 		} else if (input.equals("south")) {
-			map.play(input);
+			map.play(input, this);
 			command(s);
 		} else if (input.equals("west")) {
-			map.play(input);
+			map.play(input, this);
 			command(s);
 		} else if (input.equals("east")) {
-			map.play(input);
+			map.play(input, this);
 			command(s);
 		} else {
 			System.out.println("Invalid command.");

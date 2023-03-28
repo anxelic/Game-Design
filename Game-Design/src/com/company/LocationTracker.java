@@ -1,10 +1,13 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class LocationTracker {
     // define different spaces
     private static final int SPACE = 0;
     private static final int WALL = 1;
     private static final int HORWALL = 2;
+    private static final int BYEWALL = 3;
     
     // map dim
     private static final int MAP_WIDTH = 17;
@@ -58,7 +61,7 @@ public class LocationTracker {
                 map2[i][MAP_HEIGHT - 1] = HORWALL;
             }
         }
-        map[1][6] = HORWALL;
+        map[1][6] = BYEWALL;
         map[1][8] = HORWALL;
         map[2][2] = HORWALL;
         map[2][6] = HORWALL;
@@ -106,7 +109,7 @@ public class LocationTracker {
         map[8][11] = WALL;
         map[8][12] = WALL;
         map[8][14] = HORWALL;
-        map[9][14] = HORWALL;
+        map[9][14] = BYEWALL;
         map[10][1] = WALL;
         map[10][2] = WALL;
         map[10][4] = WALL;
@@ -146,7 +149,7 @@ public class LocationTracker {
         map[15][14] = HORWALL;
     }
     
-    public void play(String s) {
+    public void play(String s, Player player) {
         switch (s) {
             case "north":
                 if (playerY > 0 && map[playerX][playerY - 1] != WALL && map[playerX][playerY - 1] != HORWALL) {
@@ -169,15 +172,50 @@ public class LocationTracker {
                 }
                 break;
         }
-        if (playerY == 16) {
+        if (playerY == 16 && player.keyCheck() == true) {
             System.out.println("yippie");
             endGame = true;
+        } else if (playerY == 16 && player.keyCheck() == false) {
+            playerY--;
+            if (player.mapCheck() == true) {
+                displayWorldWithMap();
+            } else {
+                displayWorld();
+            }
+            System.out.println("You must got back into the maze to collect all 3 keys!");
         } else {
             map2[playerX-1][playerY] = map[playerX-1][playerY];
             map2[playerX+1][playerY] = map[playerX+1][playerY];
             map2[playerX][playerY-1] = map[playerX][playerY-1];
             map2[playerX][playerY+1] = map[playerX][playerY+1];
-            displayWorld();
+            if (player.mapCheck() == true) {
+                displayWorldWithMap();
+            } else {
+                displayWorld();
+            }
+        }
+    }
+
+    public void byeWall (Scanner s, Player p) {
+        System.out.println("You are next to a breakable wall, would you like to perform a skill check to break it? (Yes or No)");
+        String input = s.nextLine().toLowerCase();
+        if (input.equals("yes") && p.stats[0] >= 10) {
+            if (playerY < 8) {
+                map[1][6] = SPACE;
+                System.out.println("You have broken the wall!");
+                p.command(s);
+            } else {
+                map[9][14] = SPACE;
+                System.out.println("You have broken the wall!");
+                p.command(s);
+            }
+        } else if (input.equals("yes") && p.stats[0] < 10) {
+            System.out.println("Sorry, you do not have high enough stats to break this wall, try getting higher strength.");
+        } else if (input.equals("no")) {
+            p.command(s);
+        } else {
+            System.out.println("Invalid input, please try again.");
+            byeWall(s, p);
         }
     }
 
@@ -196,6 +234,9 @@ public class LocationTracker {
                             break;
                         case HORWALL:
                             System.out.print("---");
+                            break;
+                        case BYEWALL:
+                            System.out.print("xxx");
                     }
                 }
             }
@@ -222,6 +263,9 @@ public class LocationTracker {
                             break;
                         case HORWALL:
                             System.out.print("---");
+                            break;
+                        case BYEWALL:
+                            System.out.print("xxx");
                     }
                 }
             }

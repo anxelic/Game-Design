@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class LocationTracker {
@@ -27,6 +29,13 @@ public class LocationTracker {
 
     //end game boolean
     private Boolean endGame = false;
+
+    //puzzle room checks
+    public Boolean puzzleA = false;
+    public Boolean puzzleB = false;
+    public Boolean puzzleC = false;
+
+    private HashMap<String, Cord> itemMap = new HashMap<String, Cord>();
     
     public LocationTracker() {
         //left wall
@@ -149,7 +158,7 @@ public class LocationTracker {
         map[15][14] = HORWALL;
     }
     
-    public void play(String s, Player player) {
+    public void play(String s, Player player, Scanner sc) {
         switch (s) {
             case "north":
                 if (playerY > 0 && map[playerX][playerY - 1] != WALL && map[playerX][playerY - 1] != HORWALL) {
@@ -194,18 +203,48 @@ public class LocationTracker {
                 displayWorld();
             }
         }
+        if (playerX == 1 && playerY == 7 || playerX == 1 && playerY == 5 || playerX == 9 && playerY == 13 || playerX == 9 && playerY == 15) { //1,7 1,5 || 9, 13 9, 15
+            if (map2[1][6] != SPACE) {
+                byeWall(sc, player);
+            } else if (map2[9][14] != SPACE) {
+                byeWall(sc, player);
+            } else {
+                return;
+            }
+        }
+        if (playerX == 1 && playerY == 2) {
+            puzzleA(sc);
+        }
+    }
+
+    public void puzzleA (Scanner s) {
+        System.out.println("You are in front of a puzzle room! Would you like to go inside?");
+        String i = s.nextLine().toLowerCase();
+        if (i.equals("yes")) {
+            return;
+        } else if (i.equals("no")) {
+            return;
+        } else {
+            System.out.println("Invalid.");
+            puzzleA(s);
+        }
     }
 
     public void byeWall (Scanner s, Player p) {
+        displayWorld();
         System.out.println("You are next to a breakable wall, would you like to perform a skill check to break it? (Yes or No)");
         String input = s.nextLine().toLowerCase();
         if (input.equals("yes") && p.stats[0] >= 10) {
             if (playerY < 8) {
                 map[1][6] = SPACE;
+                map2[1][6] = SPACE;
+                displayWorld();
                 System.out.println("You have broken the wall!");
                 p.command(s);
             } else {
                 map[9][14] = SPACE;
+                map2[9][14] = SPACE;
+                displayWorld();
                 System.out.println("You have broken the wall!");
                 p.command(s);
             }
@@ -217,6 +256,11 @@ public class LocationTracker {
             System.out.println("Invalid input, please try again.");
             byeWall(s, p);
         }
+    }
+
+    public void dropItem (String s) {
+        Cord cord = new Cord(playerX, playerY);
+        itemMap.put(s, cord);
     }
 
     private void displayWorld() {

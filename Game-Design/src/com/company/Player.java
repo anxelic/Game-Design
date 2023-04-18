@@ -162,7 +162,7 @@ public class Player {
 			System.out.println("The list of commands are: ");
 			System.out.println("- help (brings you here!)");
 			System.out.println("- inv (displays current inventory)");
-			System.out.println("- drop {item} (drops an item from your inventory)");
+			System.out.println("- drop (drops an item from your inventory)");
 			System.out.println("- ls (lists your current stats)");
 			System.out.println("- grab {item} (grabs an item)");
 			System.out.println("- north (moves north)");
@@ -171,17 +171,21 @@ public class Player {
 			System.out.println("- south (moves south)");
 			command(s);
 		} else if (input.equals("north")) {
-			map.play(input, this);
+			map.play(input, this, s);
 			command(s);
 		} else if (input.equals("south")) {
-			map.play(input, this);
+			map.play(input, this, s);
 			command(s);
 		} else if (input.equals("west")) {
-			map.play(input, this);
+			map.play(input, this, s);
 			command(s);
 		} else if (input.equals("east")) {
-			map.play(input, this);
+			map.play(input, this, s);
 			command(s);
+		} else if (input.equals("drop")) {
+			System.out.println("What item do you wish to drop?");
+			String i = s.nextLine().toLowerCase();
+			removeItemFromInventory(i);
 		} else {
 			System.out.println("Invalid command.");
 			command(s);

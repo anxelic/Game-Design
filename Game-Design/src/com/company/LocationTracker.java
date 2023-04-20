@@ -1,7 +1,8 @@
 package com.company;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LocationTracker {
@@ -10,6 +11,7 @@ public class LocationTracker {
     private static final int WALL = 1;
     private static final int HORWALL = 2;
     private static final int BYEWALL = 3;
+    private static final int ITEM = 4;
     
     // map dim
     private static final int MAP_WIDTH = 17;
@@ -35,7 +37,7 @@ public class LocationTracker {
     public Boolean puzzleB = false;
     public Boolean puzzleC = false;
 
-    private HashMap<String, Cord> itemMap = new HashMap<String, Cord>();
+    private HashMap<Cord, String> itemMap = new HashMap<Cord, String>();
     
     public LocationTracker() {
         //left wall
@@ -258,9 +260,38 @@ public class LocationTracker {
         }
     }
 
+    public String findCord (int x, int y) {
+        Iterator<Map.Entry<Cord, String>> iterator = itemMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Cord, String> entry = iterator.next();
+            int firstCord = entry.getKey().getX();
+            int sndCord = entry.getKey().getY();
+            if (firstCord == x && sndCord == y) {
+                String returnVal = entry.getValue();
+                itemMap.remove(entry.getKey());
+                return returnVal;    
+            }
+        }
+        return null;
+    }
+
+    public void pickUpItem (Player p) {
+        String s = findCord(playerX, playerY);
+        if (s == null) {
+            System.out.println("No item available!");
+            return;
+        } else {
+            p.addItemToInventory(s);
+            map2[playerX][playerY] = SPACE;
+            map[playerX][playerY] = SPACE;
+        }
+    }
+
     public void dropItem (String s) {
         Cord cord = new Cord(playerX, playerY);
-        itemMap.put(s, cord);
+        itemMap.put(cord, s);
+        map2[playerX][playerY] = ITEM;
+        map[playerX][playerY] = ITEM;
     }
 
     private void displayWorld() {
@@ -281,6 +312,10 @@ public class LocationTracker {
                             break;
                         case BYEWALL:
                             System.out.print("xxx");
+                            break;
+                        case ITEM:
+                            System.out.print(" * ");
+                            break;
                     }
                 }
             }
@@ -310,6 +345,10 @@ public class LocationTracker {
                             break;
                         case BYEWALL:
                             System.out.print("xxx");
+                            break;
+                        case ITEM: 
+                            System.out.print(" * ");
+                            break;
                     }
                 }
             }

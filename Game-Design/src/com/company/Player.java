@@ -26,20 +26,20 @@ public class Player {
 	private void initInventory (String s) {
 		switch (s) {
 			case "warrior":
-				addItemToInventory("Sword");
-				addItemToInventory("Bread");
+				addItemToInventory("sword");
+				addItemToInventory("bread");
 				break;
 			case "bard":
-				addItemToInventory("Flute");
-				addItemToInventory("Bread");
+				addItemToInventory("flute");
+				addItemToInventory("bread");
 				break;
 			case "rogue":
-				addItemToInventory("Dagger");
-				addItemToInventory("Bread");
+				addItemToInventory("dagger");
+				addItemToInventory("bread");
 				break;
 			case "mage":
-				addItemToInventory("Wand");
-				addItemToInventory("Bread");
+				addItemToInventory("wand");
+				addItemToInventory("bread");
 				break;
 		}
 	}
@@ -164,7 +164,7 @@ public class Player {
 			System.out.println("- inv (displays current inventory)");
 			System.out.println("- drop (drops an item from your inventory)");
 			System.out.println("- ls (lists your current stats)");
-			System.out.println("- grab {item} (grabs an item)");
+			System.out.println("- grab (grabs an item)");
 			System.out.println("- north (moves north)");
 			System.out.println("- west (moves west)");
 			System.out.println("- east (moves east)");
@@ -186,6 +186,11 @@ public class Player {
 			System.out.println("What item do you wish to drop?");
 			String i = s.nextLine().toLowerCase();
 			removeItemFromInventory(i);
+			map.dropItem(i);
+			command(s);
+		} else if (input.equals("grab")) {
+			map.pickUpItem(this);
+			command(s);
 		} else {
 			System.out.println("Invalid command.");
 			command(s);

@@ -205,30 +205,70 @@ public class LocationTracker {
                 displayWorld();
             }
         }
-        if (playerX == 1 && playerY == 7 || playerX == 1 && playerY == 5 || playerX == 9 && playerY == 13 || playerX == 9 && playerY == 15) { //1,7 1,5 || 9, 13 9, 15
+        if (playerX == 1 && playerY == 7 || playerX == 1 && playerY == 5 ) { //1,7 1,5 || 9, 13 9, 15
             if (map2[1][6] != SPACE) {
                 byeWall(sc, player);
-            } else if (map2[9][14] != SPACE) {
+            } else {
+                return;
+            }
+        }
+        if (playerX == 9 && playerY == 13 || playerX == 9 && playerY == 15) {
+            if (map2[9][14] != SPACE) {
                 byeWall(sc, player);
             } else {
                 return;
             }
         }
         if (playerX == 1 && playerY == 2) {
-            puzzleA(sc);
+            puzzleA(sc, player);
+        }
+        if (playerX == 1 && playerY == 6) {
+            puzzleA2(sc, player);
+        }
+        if (playerX == 4 && playerY == 15) {
+            puzzleC(sc, player);
         }
     }
 
-    public void puzzleA (Scanner s) {
-        System.out.println("You are in front of a puzzle room! Would you like to go inside?");
-        String i = s.nextLine().toLowerCase();
-        if (i.equals("yes")) {
-            return;
-        } else if (i.equals("no")) {
-            return;
+    public void puzzleA (Scanner s, Player p) {
+        if (p.red_key == false) {
+            System.out.println("You are in front of a puzzle room! Would you like to go inside?");
+            String i = s.nextLine().toLowerCase();
+            if (i.equals("yes")) {
+                PuzzleA.main(null, p);
+            } else if (i.equals("no")) {
+                return;
+            } else {
+                System.out.println("Invalid.");
+                puzzleA(s, p);
+            }
         } else {
-            System.out.println("Invalid.");
-            puzzleA(s);
+            return;
+        } 
+    }
+
+    public void puzzleA2 (Scanner s, Player p) {
+        if (p.red_key == false) {
+            PuzzleA2.main(null, p);
+        } else {
+            return;
+        }
+    }
+
+    public void puzzleC (Scanner s, Player p) {
+        if (p.blue_key == false) {
+            System.out.println("You are in front of a puzzle room! Would you like to go inside?");
+            String i = s.nextLine().toLowerCase();
+            if (i.equals("yes")) {
+                PuzzleC.main(null, p);
+            } else if (i.equals("no")) {
+                return;
+            } else {
+                System.out.println("Invalid.");
+                puzzleC(s, p);
+            }
+        } else {
+            return;
         }
     }
 

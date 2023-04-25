@@ -5,10 +5,10 @@ import java.util.Scanner;
 public class Player {
 	String spec;
 	int[] stats = new int[4];
-	//strength
-	//agility
-	//charisma
-	//intelligence
+	//strength 			 0
+	//agility  			 1
+	//charisma 			 2
+	//intelligence		 3
 	int health;
 	int level = 1;
 	int experience = 0;
@@ -16,6 +16,9 @@ public class Player {
 	String[] inventory = new String[10];
 	LocationTracker map = new LocationTracker();
 	boolean game = true;
+	boolean red_key = false;
+	boolean blue_key = false;
+	boolean green_key = false;
 
 	public Player(String s) {
 		spec = s;
@@ -193,6 +196,7 @@ public class Player {
 			command(s);
 		} else if (input.equals("inv")) {
 			displayInventory();
+			command(s);
 		} else {
 			System.out.println("Invalid command.");
 			command(s);

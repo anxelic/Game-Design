@@ -191,6 +191,8 @@ public class Player {
 		} else if (input.equals("grab")) {
 			map.pickUpItem(this);
 			command(s);
+		} else if (input.equals("inv")) {
+			displayInventory();
 		} else {
 			System.out.println("Invalid command.");
 			command(s);

@@ -197,6 +197,9 @@ public class Player {
 		} else if (input.equals("inv")) {
 			displayInventory();
 			command(s);
+		} else if (input.equals("ls")) {
+			listStats();
+			command(s);
 		} else {
 			System.out.println("Invalid command.");
 			command(s);

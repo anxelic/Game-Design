@@ -228,6 +228,9 @@ public class LocationTracker {
         if (playerX == 4 && playerY == 15) {
             puzzleC(sc, player);
         }
+        if (playerX == 14 && playerY == 9) {
+            puzzleB(sc, player);
+        }
     }
 
     public void puzzleA (Scanner s, Player p) {
@@ -255,6 +258,23 @@ public class LocationTracker {
         }
     }
 
+    public void puzzleB (Scanner s, Player p) {
+        if (p.green_key == false) {
+            System.out.println("You are in front of a puzzle room! Would you like to go inside?");
+            String i = s.nextLine().toLowerCase();
+            if (i.equals("yes")) {
+                PuzzleB.main(null, p);
+            } else if (i.equals("no")) {
+                return;
+            } else {
+                System.out.println("Invalid.");
+                puzzleB(s, p);
+            }
+        } else {
+            return;
+        }
+    }
+
     public void puzzleC (Scanner s, Player p) {
         if (p.blue_key == false) {
             System.out.println("You are in front of a puzzle room! Would you like to go inside?");
@@ -273,7 +293,11 @@ public class LocationTracker {
     }
 
     public void byeWall (Scanner s, Player p) {
-        displayWorld();
+        if (p.mapCheck() == true) {
+            displayWorldWithMap();
+        } else {
+            displayWorld();
+        }
         System.out.println("You are next to a breakable wall, would you like to perform a skill check to break it? (Yes or No)");
         String input = s.nextLine().toLowerCase();
         if (input.equals("yes") && p.stats[0] >= 10) {

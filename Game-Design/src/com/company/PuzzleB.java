@@ -7,6 +7,7 @@ public class PuzzleB {
 
 	private static Scanner s = new Scanner(System.in);
 	private static int num = 0;
+	private static ArrayList<String> pickupItems = new ArrayList<String>();
 	
 	public static void main(String[] args, Player p) {
 		System.out.println("You have entered a room where you have noticed that there are multiple traps blocking your path to the key.");
@@ -21,6 +22,7 @@ public class PuzzleB {
 	public static void obstacleOne(Player p) {
 		String ans = s.nextLine().toLowerCase();
 		if (ans.equals("use the vines") || ans.equals("use vines") || ans.equals("vines")) {
+			p.addItemToInventory("vines");
 			System.out.println("You use the vines and hook them onto the wooden board above and swing across the gap.");
 			System.out.println("You have passed the first trap and make your way to the second trap.");
 			System.out.println();
@@ -64,7 +66,6 @@ public class PuzzleB {
 	}
 
 	public static void obstacleTwo(Player p) {
-        ArrayList<String> pickupItems = new ArrayList<String>();
         pickupItems.add("rope");
         pickupItems.add("axe");
         pickupItems.add("potion_of_levitation");
@@ -155,8 +156,79 @@ public class PuzzleB {
 			obstacleTwo(p);
 		}
 	}
+
+	public static void noItems (Player p) {
+		System.out.println("You go back into the fairy room, there are less items than before and the fairy is gone.");
+		System.out.println("You see a rusty butter knife. Do you want to take it?");
+		String x = s.nextLine().toLowerCase();
+		if (x.equals("yes")) {
+			p.addItemToInventory("rusty_butterknife");
+			pickupItems.remove("rusty_butterknife");
+			obstacleThree(p);
+		} else if (x.equals("no")) {
+			System.out.println("You decide to not take the item... for some reason.");
+			obstacleThree(p);
+		} else {
+			System.out.println("Invalid response.");
+			noItems(p);
+		}
+	}
+
+	// pickupItems.add("rope");
+    //     pickupItems.add("axe");
+    //     pickupItems.add("potion_of_levitation");
+    //     pickupItems.add("potion_of_flight");
+    //     pickupItems.add("rusty_butterknife");
+    //     pickupItems.add("apple");
 	
 	public static void obstacleThree(Player p) {
-		//NEED TO DO
+		boolean rope = false;
+		boolean vine = false;
+		for (int i = 0; i < p.inventory.length; i++) {
+			if (p.inventory[i] == (null)) {
+				break;
+			}
+			if (p.inventory[i].equals("vine") ) {
+				vine = true;
+			} else if (p.inventory[i].equals("rope")) {
+				rope = true;
+			} else {}
+		}
+		System.out.println("You see a key at the top of a spire.");
+		if (pickupItems.size() == 6) {
+			System.out.println("You are unable to reach the key.. Maybe there was something before that could help.");
+			System.out.println("Do you want to go back?");
+			String x = s.nextLine().toLowerCase();
+			if (x.equals("yes")) {
+				noItems(p);
+			} else if (x.equals("no")) {
+			} else {
+				System.out.println("Invalid.");
+				obstacleThree(p);
+			}
+		}
+		if (p.stats[0] >= 10) {
+			System.out.println("You take your body weight, and slam into the spire. The key falls off the top, and you pick it up.");
+			p.addItemToInventory("green_key");
+		} else if (p.stats[1] >= 10) {
+			System.out.println("You scale the spire, and grab the key.");
+			p.addItemToInventory("green_key");
+		} else if (!pickupItems.contains("potion_of_levitation") && p.stats[3] >= 10) {
+			System.out.println("You remember that you had a potion of levitation. Using your high intelligence, you use a levitation spell and aquire the key.");
+			p.addItemToInventory("green_key");
+		} else if (rope == true) {
+			System.out.println("You see an anchor point at the top of the spire, and throw your rope onto it. Allowing you to climb up and get the key.");
+			p.addItemToInventory("green_key");
+		} else if (vine == true) {
+			System.out.println("You see an anchor point at the top of the spire, and throw your vine onto it. Allowing you to climb up and get the key.");
+			p.addItemToInventory("green_key");
+		} else if (!pickupItems.contains("potion_of_flight")) {
+			System.out.println("You use your potion of flight and fly up to get the key.");
+			p.addItemToInventory("green_key");
+		} else if (!pickupItems.contains("rusty_butterknife")) {
+			System.out.println("You take the butter knife it and throw it at the spire! The key falls down, but you lost the item to the void.");
+			p.removeItemFromInventory("rusty_butterknife");
+			p.addItemToInventory("green_key");
+		}
 	}
 }

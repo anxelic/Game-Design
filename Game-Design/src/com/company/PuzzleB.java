@@ -210,25 +210,39 @@ public class PuzzleB {
 		if (p.stats[0] >= 10) {
 			System.out.println("You take your body weight, and slam into the spire. The key falls off the top, and you pick it up.");
 			p.addItemToInventory("green_key");
+			p.xpGain(200, s);
+			p.green_key = true;
 		} else if (p.stats[1] >= 10) {
 			System.out.println("You scale the spire, and grab the key.");
 			p.addItemToInventory("green_key");
+			p.xpGain(200, s);
+			p.green_key = true;
 		} else if (!pickupItems.contains("potion_of_levitation") && p.stats[3] >= 10) {
 			System.out.println("You remember that you had a potion of levitation. Using your high intelligence, you use a levitation spell and aquire the key.");
 			p.addItemToInventory("green_key");
+			p.xpGain(200, s);
+			p.green_key = true;
 		} else if (rope == true) {
 			System.out.println("You see an anchor point at the top of the spire, and throw your rope onto it. Allowing you to climb up and get the key.");
 			p.addItemToInventory("green_key");
+			p.xpGain(200, s);
+			p.green_key = true;
 		} else if (vine == true) {
 			System.out.println("You see an anchor point at the top of the spire, and throw your vine onto it. Allowing you to climb up and get the key.");
 			p.addItemToInventory("green_key");
+			p.xpGain(200, s);
+			p.green_key = true;
 		} else if (!pickupItems.contains("potion_of_flight")) {
 			System.out.println("You use your potion of flight and fly up to get the key.");
 			p.addItemToInventory("green_key");
+			p.xpGain(200, s);
+			p.green_key = true;
 		} else if (!pickupItems.contains("rusty_butterknife")) {
 			System.out.println("You take the butter knife it and throw it at the spire! The key falls down, but you lost the item to the void.");
 			p.removeItemFromInventory("rusty_butterknife");
 			p.addItemToInventory("green_key");
+			p.xpGain(200, s);
+			p.green_key = true;
 		}
 	}
 }

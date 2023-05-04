@@ -7,16 +7,45 @@ public class Main {
         Scanner s = new Scanner(System.in);
         System.out.println("What class do you desire to be?: warrior, bard, rogue, or mage (please write it as shown)");
         String input = s.nextLine().toLowerCase();
-        Intro intro = new Intro();
-        Player player = new Player(input);
-        player.listStats();
-        player.displayInventory();
-
-        //Intro intro = new Intro(player);
-        System.out.println("Welcome to the maze! I am the guide of this challenge. Do you wish to talk to me to learn the maze, or would you rather enter.(talk or enter)");
-        intro.letsBegin(s, player);
-        //System.out.println("Welcome to the maze! I am the guide of this challenge. Do you wish to talk to me to learn the maze, or would you rather enter.(talk or enter)");
-
-        //player.command(s);
+        Player player;
+        Intro intro;
+        switch (input) {
+            case "warrior":
+                player = new Player(input);
+                intro = new Intro();
+                player.listStats();
+                player.displayInventory();
+                System.out.println("Welcome to the maze! I am the guide of this challenge. Do you wish to talk to me to learn the maze, or would you rather enter.(talk or enter)");
+                intro.letsBegin(s, player);
+                break;
+            case "bard":
+                player = new Player(input);
+                intro = new Intro();
+                player.listStats();
+                player.displayInventory();
+                System.out.println("Welcome to the maze! I am the guide of this challenge. Do you wish to talk to me to learn the maze, or would you rather enter.(talk or enter)");
+                intro.letsBegin(s, player);
+                break;
+            case "rogue":
+                player = new Player(input);
+                intro = new Intro();
+                player.listStats();
+                player.displayInventory();
+                System.out.println("Welcome to the maze! I am the guide of this challenge. Do you wish to talk to me to learn the maze, or would you rather enter.(talk or enter)");
+                intro.letsBegin(s, player);
+                break;
+            case "mage":
+                player = new Player(input);
+                intro = new Intro();
+                player.listStats();
+                player.displayInventory();
+                System.out.println("Welcome to the maze! I am the guide of this challenge. Do you wish to talk to me to learn the maze, or would you rather enter.(talk or enter)");
+                intro.letsBegin(s, player);
+                break;
+            default:
+                System.out.println("Not a valid class.");
+                Main.main(args);
+        }
+        
     }
 }

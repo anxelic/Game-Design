@@ -20,8 +20,8 @@ public class Intro {
             } else if (input.equals("no")) {
                 player.command(s);
             } else {
-                System.out.println("Invalid. Yes, or no?");
-                input = s.nextLine().toLowerCase();
+                System.out.println("Invalid response. The guy no longer wishes to talk to you..");
+                player.command(s);
             }
         } else if (input.equals("enter")) {
             player.command(s);

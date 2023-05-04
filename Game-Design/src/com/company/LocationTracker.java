@@ -304,13 +304,21 @@ public class LocationTracker {
             if (playerY < 8) {
                 map[1][6] = SPACE;
                 map2[1][6] = SPACE;
-                displayWorld();
+                if (p.mapCheck() == true) {
+                    displayWorldWithMap();
+                } else {
+                    displayWorld();
+                }
                 System.out.println("You have broken the wall!");
                 p.command(s);
             } else {
                 map[9][14] = SPACE;
                 map2[9][14] = SPACE;
-                displayWorld();
+                if (p.mapCheck() == true) {
+                    displayWorldWithMap();
+                } else {
+                    displayWorld();
+                }
                 System.out.println("You have broken the wall!");
                 p.command(s);
             }

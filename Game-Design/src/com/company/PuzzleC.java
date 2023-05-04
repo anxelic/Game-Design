@@ -37,6 +37,7 @@ public class PuzzleC {
 		System.out.println("You decide to go through this hallway where there are many traps. Being careful you go past all of the traps and make your way to a switch to power down the traps.");
 		System.out.println("You have acquired the Blue Key.");
         p.addItemToInventory("blue_key");
+        p.xpGain(100, s);
         p.blue_key = true;
 	}
 	
@@ -98,6 +99,7 @@ public class PuzzleC {
 				correct[i] = false;
 			}
             p.addItemToInventory("blue_key");
+			p.xpGain(100, s);
             p.blue_key = true;
 		} else {
 			System.out.println("You tried to unlock the pannel, but you have failed and given the wrong password. You can't leave, so you attempt to solve the password again.");

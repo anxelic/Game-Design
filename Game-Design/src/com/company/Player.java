@@ -88,11 +88,11 @@ public class Player {
 		System.out.println("Charisma: " + stats[2]);
 		System.out.println("Intelligence: " + stats[3]);
 		System.out.println("Health: " + health);
-		System.out.println("Current XP: " + experience + "/" + xpCap);
+		System.out.println("Current XP: " + this.experience + "/" + xpCap);
 		System.out.println("Level: " + level);
 	}
 
-	public void upgradeStat (String s) {
+	public void upgradeStat (String s, Scanner sc) {
 		switch (s) {
 			case "strength":
 				stats[0] = stats[0] + 1;
@@ -106,6 +106,9 @@ public class Player {
 			case "intelligence":
 				stats[3] = stats[3] + 1;
 				break;
+			default:
+				System.out.println("Invalid stat name. (strength, agility, charisma, or intelligence)");
+				levelUp(sc);
 		}
 	}
 
@@ -113,15 +116,15 @@ public class Player {
 		System.out.println("You leveled up! Which stat would you like to increase?");
 		if (s.hasNextLine()) {
 			String x = s.nextLine();
-			upgradeStat(x);
+			upgradeStat(x, s);
 		}
 	}
 
 	public void xpGain (int x, Scanner s) {
-		experience += x;
-		while (experience > xpCap) {
-			experience -= xpCap;
-			level++;
+		this.experience += x;
+		while (this.experience >= this.xpCap) {
+			this.experience -= this.xpCap;
+			this.level++;
 			levelUp(s);
 		}
 	}
@@ -157,7 +160,18 @@ public class Player {
 
 	public void command (Scanner s) {
 		if (map.gameEnd() == true) {
-			System.out.println("ajhwvdghjvwawadhjwadjh");
+			System.out.println("You retrieved all the keys and were able to unlock the maze... Congrats!");
+			System.out.println("Do you wish to play again?");
+			String x = s.nextLine().toLowerCase();
+			if (x.equals("yes")) {
+				Main.main(null);
+			} else if (x.equals("no")) {
+				System.out.println("Okay! Thank you for playing.");
+				return;
+			} else {
+				System.out.println("Invalid response.");
+				command(s);
+			}
 		} else {
 			System.out.println("What do you wish to do next? (help for list of cmds): ");
 		String input = s.nextLine().toLowerCase();

@@ -35,7 +35,8 @@ public class PuzzleA {
 			System.out.println("'That is correct my friend. Here, you've earned this.' The main gives you a red key.");
 			//System.out.println("You aquired the Red Key.");
             p.addItemToInventory("red_key");
-            p.red_key = true;
+            p.xpGain(100, s);
+        	p.red_key = true;
 		} else if(ans.equals("distract")) {
             if (p.stats[2] >= 10) {
                 System.out.println("Finding this very stupid, you yell at the man. 'I don't have time for this old man. Can't you see how angry this makes me?'");
@@ -57,6 +58,7 @@ public class PuzzleA {
 		System.out.println("You startle the old man who throws the key to you. 'Well you're no fun are you?'");
 		//System.out.println("You acquired the Red Key.");
         p.addItemToInventory("red_key");
+		p.xpGain(100, s);
         p.red_key = true;
 	}
 	
@@ -64,6 +66,7 @@ public class PuzzleA {
 		System.out.println("The old man laughs at you. 'Ahahaha, I see this must be super hard for you, but I've had fun doing this. Here you go son.'");
 		//System.out.println("You acquired the Red Key.");
         p.addItemToInventory("red_key");
+		p.xpGain(100, s);
         p.red_key = true;
 	}
 }

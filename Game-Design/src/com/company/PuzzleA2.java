@@ -34,6 +34,7 @@ public class PuzzleA2 {
 		System.out.println("You scared the man so much that he fainted while you stole the key. 'It's nothing personal old man.'");
 		//System.out.println("You acquired the Rey Key.");
 		p.addItemToInventory("red_key");
+		p.xpGain(100, s);
         p.red_key = true;
 	}
 }
